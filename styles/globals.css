@@ -1,0 +1,14 @@
+html,
+body {
+  min-height: 100%;
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
