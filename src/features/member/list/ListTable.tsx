@@ -22,9 +22,10 @@ import Tooltip from '@mui/material/Tooltip';
 //* Utils Import
 import { MEMBER_COLUMNS, MEMEBER_STATUS } from '@/utils/staticData';
 import masking from '@/utils/masking';
+import formatter from '@/utils/formatter';
 
 //* Types import
-import { TMember } from '@/types';
+import { TMember, TPage } from '@/types';
 import { ThemeColorType } from '@/layouts/types';
 
 //* Components
@@ -38,11 +39,12 @@ interface StatusObjType {
 }
 interface IProps {
   rows: TMember[];
+  pageInfo: TPage[];
 }
 
 const ListTable = (props: IProps) => {
   const router = useRouter();
-  const { rows } = props;
+  const { rows, pageInfo } = props;
 
   const statusObj: StatusObjType = {
     pending: { color: 'warning' },
@@ -65,11 +67,10 @@ const ListTable = (props: IProps) => {
     setPage(0);
   };
 
-  const { isLoading, data } = useMemberList();
+  const { isLoading, data } = useMemberList(2);
   console.log(isLoading);
 
   if (isLoading) return <div>Loading...</div>;
-  console.log(data?.data);
 
   return (
     <>
@@ -86,19 +87,19 @@ const ListTable = (props: IProps) => {
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+              <TableRow hover key={row.id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                 <TableCell>{rows.length - index}</TableCell>
                 <TableCell>
                   {/* <Box sx={{ display: 'flex', alignItems: 'center' }}> */}
                   {/* <Avatar sx={{ width: 30, height: 30, marginRight: 2 }} /> */}
-                  {masking.name(row.name)}
+                  {masking.name(row.name) || '-'}
                   {/* </Box> */}
                 </TableCell>
-                <TableCell>{masking.email(row.userId)}</TableCell>
+                <TableCell>{masking.email(row.email)}</TableCell>
                 <TableCell>{masking.phone(row.phone)}</TableCell>
-                <TableCell>{row.birth}</TableCell>
-                <TableCell>{row.createDt}</TableCell>
-                <TableCell>{row.lastDt}</TableCell>
+                <TableCell>{formatter.date(row.birth)}</TableCell>
+                <TableCell>{formatter.isoToDate(row.created_date)}</TableCell>
+                <TableCell>{formatter.isoToDate(row.recent_date)}</TableCell>
 
                 <TableCell>
                   <Chip
@@ -115,7 +116,7 @@ const ListTable = (props: IProps) => {
 
                 <TableCell>
                   <Tooltip title="상세보기" placement="top" arrow>
-                    <IconButton size="small" sx={{ p: 0 }} onClick={() => router.push(`/member/list/${row.idx}`)}>
+                    <IconButton size="small" sx={{ p: 0 }} onClick={() => router.push(`/member/list/${row.id}`)}>
                       <EditNoteIcon />
                     </IconButton>
                   </Tooltip>
@@ -138,8 +139,8 @@ const ListTable = (props: IProps) => {
        * onChange: change page Event
        */}
       <TablePagination
-        page={10}
-        count={10}
+        page={pageInfo.request_page}
+        count={pageInfo.total_pages}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         isRowSelect

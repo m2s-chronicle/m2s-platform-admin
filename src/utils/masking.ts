@@ -19,6 +19,7 @@ const masking = {
    * @returns 홍길동 -> 홍*동, 김꽃두레 -> 김**레, 김숙 -> *숙
    */
   name: function (name: string) {
+    if (this.checkNull(name) === true) return '홍*동';
     if (name.length <= 2) return name.replace(name.substring(0, 1), '*');
     return name[0] + '*'.repeat(name.substring(1, name.length - 1).length) + name[name.length - 1];
   },
@@ -26,12 +27,18 @@ const masking = {
   /**
    * 전화번호 마스킹
    * @param phone
-   * @returns 010-1234-4567 -> 010-****-4567
+   * @returns 01012345678 -> 010-****-5678
    */
   phone: function (phone: string) {
-    const values = phone.split('-');
-    values[1] = '*'.repeat(values[1].length);
-    return values.join('-');
+    if (this.checkNull(phone) === true) return '010-****-5678';
+    const digits = phone.replace(/\D/g, '');
+    if (digits.length === 11) {
+      // Format as 010-****-5678
+      return `${digits.slice(0, 3)}-${'****'}-${digits.slice(7)}`;
+    } else if (digits.length > 11){
+      return `${digits.slice(0, 3)}-${'****'}-${digits.slice(7, digits.length)}`;
+    }
+    return phone;
   },
 
   /**
