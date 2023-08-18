@@ -1,13 +1,23 @@
 export type TMember = {
-  idx: number;
+  id: number;
   name: string;
-  userId: string;
+  username: string;
+  email: string;
   phone: string;
   birth: string;
   gender: 'F' | 'M';
-  createDt: string;
-  lastDt: string;
+  created_date: string;
+  recent_date: string;
   status: 'pending' | 'active' | 'out';
+};
+
+export type TPage = {
+  is_first_page: boolean;
+  is_last_page: true;
+  request_page: number;
+  request_size: number;
+  total_data_cnt: number;
+  total_pages: number;
 };
 
 type TDateRange = {

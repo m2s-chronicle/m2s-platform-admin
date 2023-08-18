@@ -22,14 +22,14 @@ import Tooltip from '@mui/material/Tooltip';
 //* Utils Import
 import { MEMBER_COLUMNS, MEMEBER_STATUS } from '@/utils/staticData';
 import masking from '@/utils/masking';
+import formatter from '@/utils/formatter';
 
 //* Types import
-import { TMember } from '@/types';
+import { TMember, TPage } from '@/types';
 import { ThemeColorType } from '@/layouts/types';
 
 //* Components
 import TablePagination from '@/components/table/TablePagination';
-import useMemberList from '@/hooks/queries/useMemberList';
 
 interface StatusObjType {
   [key: string]: {
@@ -38,11 +38,23 @@ interface StatusObjType {
 }
 interface IProps {
   rows: TMember[];
+  pageInfo: TPage[];
+  isLoading: boolean;
+  handleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
+
+const memberKeys = {
+  all: ['members'] as const,
+  lists: () => [...memberKeys.all, 'list'] as const,
+  list: () => [...memberKeys.lists()] as const,
+  details: () => [...memberKeys.all, 'detail'],
+  detail: (id: number) => [...memberKeys.details(), id] as const,
+};
 
 const ListTable = (props: IProps) => {
   const router = useRouter();
-  const { rows } = props;
+  const { rows, pageInfo, isLoading, handleChangePage, handleChangeRowsPerPage } = props;
 
   const statusObj: StatusObjType = {
     pending: { color: 'warning' },
@@ -53,23 +65,9 @@ const ListTable = (props: IProps) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const { isLoading, data } = useMemberList();
-  console.log(isLoading);
-
   if (isLoading) return <div>Loading...</div>;
-  console.log(data?.data);
 
   return (
     <>
@@ -86,19 +84,19 @@ const ListTable = (props: IProps) => {
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <TableRow hover key={row.name} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
+              <TableRow hover key={row.id} sx={{ '&:last-of-type td, &:last-of-type th': { border: 0 } }}>
                 <TableCell>{rows.length - index}</TableCell>
                 <TableCell>
                   {/* <Box sx={{ display: 'flex', alignItems: 'center' }}> */}
                   {/* <Avatar sx={{ width: 30, height: 30, marginRight: 2 }} /> */}
-                  {masking.name(row.name)}
+                  {masking.name(row.name) || '-'}
                   {/* </Box> */}
                 </TableCell>
-                <TableCell>{masking.email(row.userId)}</TableCell>
+                <TableCell>{masking.email(row.email)}</TableCell>
                 <TableCell>{masking.phone(row.phone)}</TableCell>
-                <TableCell>{row.birth}</TableCell>
-                <TableCell>{row.createDt}</TableCell>
-                <TableCell>{row.lastDt}</TableCell>
+                <TableCell>{formatter.date(row.birth)}</TableCell>
+                <TableCell>{formatter.isoToDate(row.created_date)}</TableCell>
+                <TableCell>{formatter.isoToDate(row.recent_date)}</TableCell>
 
                 <TableCell>
                   <Chip
@@ -115,7 +113,7 @@ const ListTable = (props: IProps) => {
 
                 <TableCell>
                   <Tooltip title="상세보기" placement="top" arrow>
-                    <IconButton size="small" sx={{ p: 0 }} onClick={() => router.push(`/member/list/${row.idx}`)}>
+                    <IconButton size="small" sx={{ p: 0 }} onClick={() => router.push(`/member/list/${row.id}`)}>
                       <EditNoteIcon />
                     </IconButton>
                   </Tooltip>
@@ -138,8 +136,9 @@ const ListTable = (props: IProps) => {
        * onChange: change page Event
        */}
       <TablePagination
-        page={10}
-        count={10}
+        page={pageInfo.request_page}
+        count={pageInfo.total_pages}
+        rowsPerPage={pageInfo.request_size}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         isRowSelect
