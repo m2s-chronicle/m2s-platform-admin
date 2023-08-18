@@ -17,12 +17,24 @@ import ContentTitle from '@/components/contentTitle';
 import ListTable from '@/features/member/list/ListTable';
 import MemberSearchForm from '@/features/member/list/MemberSearchForm';
 
+//* Hooks
 import useMemberList from '@/hooks/queries/useMemberList';
 
 const ListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const router = useRouter();
-  const { isLoading, data } = useMemberList(currentPage);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { isLoading, data } = useMemberList(currentPage, rowsPerPage);
+
+  // 페이지 변경
+  const handleChangePage = async (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  // 페이지당 행 변경
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1);
+  };
 
   return (
     <>
@@ -44,7 +56,7 @@ const ListPage = () => {
               Excel
             </Button>
           </Box>
-          <ListTable rows={data?.user_list} pageInfo={data?.page} />
+          <ListTable rows={data?.user_list} pageInfo={data?.page} isLoading={isLoading} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage}/>
         </CardContent>
       </Card>
     </>

@@ -30,7 +30,6 @@ import { ThemeColorType } from '@/layouts/types';
 
 //* Components
 import TablePagination from '@/components/table/TablePagination';
-import useMemberList from '@/hooks/queries/useMemberList';
 
 interface StatusObjType {
   [key: string]: {
@@ -40,11 +39,22 @@ interface StatusObjType {
 interface IProps {
   rows: TMember[];
   pageInfo: TPage[];
+  isLoading: boolean;
+  handleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
+
+const memberKeys = {
+  all: ['members'] as const,
+  lists: () => [...memberKeys.all, 'list'] as const,
+  list: () => [...memberKeys.lists()] as const,
+  details: () => [...memberKeys.all, 'detail'],
+  detail: (id: number) => [...memberKeys.details(), id] as const,
+};
 
 const ListTable = (props: IProps) => {
   const router = useRouter();
-  const { rows, pageInfo } = props;
+  const { rows, pageInfo, isLoading, handleChangePage, handleChangeRowsPerPage } = props;
 
   const statusObj: StatusObjType = {
     pending: { color: 'warning' },
@@ -55,20 +65,7 @@ const ListTable = (props: IProps) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const { isLoading, data } = useMemberList(2);
-  console.log(isLoading);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -141,6 +138,7 @@ const ListTable = (props: IProps) => {
       <TablePagination
         page={pageInfo.request_page}
         count={pageInfo.total_pages}
+        rowsPerPage={pageInfo.request_size}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         isRowSelect

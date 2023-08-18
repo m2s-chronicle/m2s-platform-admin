@@ -10,8 +10,8 @@ import { styled, Theme } from '@mui/material/styles';
 interface TablePaginationActionsProps {
   count: number;
   page: number;
-  isRowSelect: boolean;
   rowsPerPage?: number;
+  isRowSelect: boolean;
   onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
   onRowsPerPageChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
@@ -34,7 +34,7 @@ const RowSelectWrapper = styled(MuiBox)<BoxProps>(({ theme }) => ({
 }));
 
 const TablePagination = (props: TablePaginationActionsProps) => {
-  const { count, page, isRowSelect } = props;
+  const { count, page, rowsPerPage, isRowSelect, onPageChange, onRowsPerPageChange } = props;
 
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
@@ -45,13 +45,11 @@ const TablePagination = (props: TablePaginationActionsProps) => {
         page={page}
         shape="rounded"
         color="primary"
-        onChange={() => {
-          return false;
-        }}
+        onChange={(event, newPage) => onPageChange(event, newPage)}
       />
       {hidden && isRowSelect && (
         <RowSelectWrapper>
-          <Select variant="standard" size="small" defaultValue={10} sx={{ fontSize: 14 }} autoWidth>
+          <Select variant="standard" size="small" defaultValue={rowsPerPage} onChange={onRowsPerPageChange} sx={{ fontSize: 14 }} autoWidth>
             <MenuItem value="10">10</MenuItem>
             <MenuItem value="20">20</MenuItem>
             <MenuItem value="30">30</MenuItem>

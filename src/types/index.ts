@@ -14,7 +14,7 @@ export type TMember = {
 export type TPage = {
   is_first_page: boolean;
   is_last_page: true;
-  request_page: string;
+  request_page: number;
   request_size: number;
   total_data_cnt: number;
   total_pages: number;
