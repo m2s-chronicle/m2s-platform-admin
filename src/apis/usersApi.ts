@@ -7,7 +7,10 @@ const usersApi = {
   list: (page: number, size: number) => {
     return api.get(`/manager/user?page=${page}&size=${size}`);
   },
-  detail: () => (userId: string) => api.get(`${USERS_API_URL}/${userId}`),
+  detail: (userId: number) => {
+    console.log('userId', userId)
+    return api.get(`/manager/user/${userId}`);
+  },
 };
 
 export default usersApi;

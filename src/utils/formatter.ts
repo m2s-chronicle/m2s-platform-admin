@@ -42,6 +42,25 @@ const formatter = {
       return `${year}-${month}-${day}`;
     }
   },
+  /**
+   * iso8601 날짜를 YYYY-MM-DD HH:MM:SS로 바꿔주는 포맷터
+   * @param date
+   * @returns 2023-08-08T23:29:12.686855Z -> 2023-08-08 23:29:12
+   */
+  isoToDateTime: function (date: string) {
+    if (this.checkNull(date) === true) {
+      return date;
+    } else {
+      const newDate = new Date(date);
+      const year = newDate.getFullYear();
+      const month = String(newDate.getMonth() + 1).padStart(2, '0');
+      const day = String(newDate.getDate()).padStart(2, '0');
+      const hour = String(newDate.getHours()).padStart(2, '0');
+      const minute = String(newDate.getMinutes()).padStart(2, '0');
+      const second = String(newDate.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    }
+  }
 }
 
 export default formatter;
