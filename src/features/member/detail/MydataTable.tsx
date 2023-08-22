@@ -43,37 +43,30 @@ const columns = [
   { id: 'checkup_year', label: '검진년도' },
   { id: 'checkup_date', label: '검진일자' },
   { id: 'checkup_place', label: '검진장소' },
-  { id: 'height', label: '키' },
-  { id: 'weight', label: '몸무게' },
-  { id: 'waist', label: '허리둘레' },
-  { id: 'bmi', label: 'BMI' },
+  { id: 'height', label: '키 (cm)' },
+  { id: 'weight', label: '몸무게 (kg)' },
+  { id: 'waist', label: '허리둘레 (cm)' },
+  { id: 'bmi', label: 'BMI (kg/m2)' },
   { id: 'sight', label: '시력' },
   { id: 'hearing', label: '청력' },
-  { id: 'blood_pressure', label: '혈압' },
+  { id: 'blood_pressure', label: '혈압 (mmHg)' },
   { id: 'urinary_protein', label: '요단백' },
-  { id: 'hemoglobin', label: '헤모글로빈' },
-  { id: 'fasting_blood_sugar', label: '공복혈당' },
-  { id: 'total_cholesterol', label: '총 콜레스테롤' },
-  { id: 'hdl_cholesterol', label: 'HDL 콜레스테롤' },
-  { id: 'triglyceride', label: '트리글리세라이드' },
-  { id: 'ldl_cholesterol', label: 'LDL 콜레스테롤' },
-  { id: 'serum_creatinine', label: '혈중 크레아티닌' },
-  { id: 'gfr', label: 'GFR' },
-  { id: 'ast', label: 'AST' },
-  { id: 'alt', label: 'ALT' },
-  { id: 'ygpt', label: 'YGPT' },
+  { id: 'hemoglobin', label: '헤모글로빈 (g/dL)' },
+  { id: 'fasting_blood_sugar', label: '공복혈당 (mg/dL)' },
+  { id: 'total_cholesterol', label: '총 콜레스테롤 (mg/dL)' },
+  { id: 'hdl_cholesterol', label: 'HDL 콜레스테롤 (mg/dL)' },
+  { id: 'triglyceride', label: '트리글리세라이드 (mg/dL)' },
+  { id: 'ldl_cholesterol', label: 'LDL 콜레스테롤 (mg/dL)' },
+  { id: 'serum_creatinine', label: '혈중 크레아티닌 (mg/dL)' },
+  { id: 'gfr', label: 'GFR (mL/min)' },
+  { id: 'ast', label: 'AST (U/L)' },
+  { id: 'alt', label: 'ALT (U/L)' },
+  { id: 'ygpt', label: 'YGPT (U/L)' },
   { id: 'tb_chest_disease', label: '흉부질환 여부' },
   { id: 'osteoporosis', label: '골다공증 여부' },
   { id: 'judgement', label: '판정 결과' },
 ];
 
-
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return text.slice(0, maxLength) + '...';
-};
 
 const MydataTable = (props: IProps) => {
   const { mydataData } = props;

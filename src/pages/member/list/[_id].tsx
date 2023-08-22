@@ -17,6 +17,7 @@ import ContentTitle from '@/components/contentTitle';
 //* Fetatures Import
 import LoginTable from '@/features/member/detail/LoginTable';
 import MydataTable from '@/features/member/detail/MydataTable';
+import MemberProfile from '@/features/member/detail/MemberProfile';
 import MemberInfo from '@/features/member/detail/MemberInfo';
 
 //* Hooks
@@ -27,7 +28,7 @@ const MemberDetailPage = () => {
   //get ID
   const id = router.query._id;
   const { isLoading, data } = !isNaN(id) ? useMemberDetail(Number(id)) : { isLoading: false, data: null };
-  console.log(data)
+  // console.log("data", data)
 
 
   return (
@@ -46,7 +47,7 @@ const MemberDetailPage = () => {
               {isLoading ? (
                 <div>Loading...</div>
               ) : data && data.user ? (  // Check if data and data.user exist
-                <MemberInfo user={data.user} />
+                <MemberProfile user={data.user} />
               ) : (
                 <div>No user data available.</div>
               )}
@@ -56,6 +57,17 @@ const MemberDetailPage = () => {
 
         {/* Activities */}
         <Grid item xs={12} md={9}>
+          <Card sx={{ mb: 3 }}>
+            <CardContent sx={{ p: 5 }}>
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : data && data.user ? (  // Check if data and data.user exist
+              <MemberInfo userData={data.user} />
+              ) : (
+                <div>No login records available.</div>
+              )}
+            </CardContent>
+          </Card>
           <Card sx={{ mb: 3 }}>
             <CardContent sx={{ p: 3 }}>
               <Box sx={{ px: 4, py: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

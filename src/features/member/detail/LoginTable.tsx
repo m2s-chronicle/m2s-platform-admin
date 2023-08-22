@@ -3,6 +3,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
 import formatter from '@/utils/formatter';
+import parser from '@/utils/parser';
 import Typography from '@mui/material/Typography';
 
 interface IProps {
@@ -27,39 +28,6 @@ const columns = [
   { id: 'success', label: '성공 여부', minWidth: 100 },
 ];
 
-const parseUserAgent = (userAgent: string) => {
-  const parsedData = {
-    browser: 'Unknown Browser',
-    operatingSystem: 'Unknown OS',
-    webKit: 'Unknown WebKit',
-  };
-
-  const browserMatches = userAgent.match(/(Chrome|Safari|Firefox|Edge)\/([\d.]+)/);
-  const osMatches = userAgent.match(/(Macintosh|Windows|Linux|CrOS)[^)]+\)/);
-  const webKitMatches = userAgent.match(/AppleWebKit\/([\d.]+)/);
-
-  if (browserMatches) {
-    parsedData.browser = `${browserMatches[1]} ${browserMatches[2]}`;
-  }
-
-  if (osMatches) {
-    parsedData.operatingSystem = osMatches[0];
-  }
-
-  if (webKitMatches) {
-    parsedData.webKit = webKitMatches[0];
-  }
-
-  return parsedData;
-};
-
-
-const truncateText = (text: string, maxLength: number) => {
-  if (text.length <= maxLength) {
-    return text;
-  }
-  return text.slice(0, maxLength) + '...';
-};
 
 const LoginTable = (props: IProps) => {
   const { loginData } = props;
@@ -79,7 +47,7 @@ const LoginTable = (props: IProps) => {
         </TableHead>
         <TableBody>
         {loginData.map((row) => {
-            const parsedUserAgent = parseUserAgent(row.user_agent);
+            const parsedUserAgent = parser.parseUserAgent(row.user_agent);
             return (
               <TableRow hover tabIndex={-1} key={row.id}>
                 <TableCell>{row.id}</TableCell>

@@ -60,7 +60,26 @@ const formatter = {
       const second = String(newDate.getSeconds()).padStart(2, '0');
       return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     }
-  }
+  },
+  /**
+   * iso8601 날짜를 YYYY년 MM월 DD일 HH시 MM분 SS초로 바꿔주는 포맷터
+   * @param date
+   * @returns 2023-08-08T23:29:12.686855Z -> 2023년 08월 08일 23시 29분 12초
+   */
+  isoToFullDateTime: function (date: string) {
+      if (this.checkNull(date) === true) {
+        return date;
+      } else {
+        const newDate = new Date(date);
+        const year = newDate.getFullYear();
+        const month = String(newDate.getMonth() + 1).padStart(2, '0');
+        const day = String(newDate.getDate()).padStart(2, '0');
+        const hour = String(newDate.getHours()).padStart(2, '0');
+        const minute = String(newDate.getMinutes()).padStart(2, '0');
+        const second = String(newDate.getSeconds()).padStart(2, '0');
+        return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분 ${second} 초`;
+      }
+    }
 }
 
 export default formatter;
