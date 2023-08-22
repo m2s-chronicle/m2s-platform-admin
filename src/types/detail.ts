@@ -4,6 +4,8 @@ export type TUser = {
   username: string;
   created_date?: string; // Optional property
   status?: string; // Optional property
+  auth_status?: string; // Optional property
+  age?: number; // Optional property
 };
 
 export type TPage = {

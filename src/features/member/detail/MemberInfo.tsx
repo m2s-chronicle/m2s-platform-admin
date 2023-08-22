@@ -80,7 +80,7 @@ const UserTable = (props: IProps) => {
             <TableCell>
               <Chip
                 label={MEMEBER_STATUS.filter((stat) => stat.value === userData.status)[0].label}
-                color={USER_STATUS_COLOR[userData.status].color}
+                color={USER_STATUS_COLOR[userData.status].color as 'default' | 'warning' | 'secondary' | 'success' | 'primary' | 'error' | 'info'}
                 sx={{
                   height: 24,
                   fontSize: '0.75rem',
@@ -98,7 +98,7 @@ const UserTable = (props: IProps) => {
                 <>
                   <Chip
                     label={AUTH_STATUS.filter((stat) => stat.value === userData.auth_status)[0].label}
-                    color={AUTH_STATUS_COLOR[userData.auth_status].color}
+                    color={AUTH_STATUS_COLOR[userData.auth_status].color as 'default'}
                     sx={{
                       mb: 2,
                       height: 24,

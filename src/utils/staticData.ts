@@ -1,3 +1,11 @@
+interface StatusColor {
+  color: string;
+}
+
+interface StatusColorMap {
+  [key: string]: StatusColor;
+}
+
 export const SEARCH_TYPE = [
   { value: 'all', label: '전체' },
   { value: 'name', label: '이름' },
@@ -11,7 +19,9 @@ export const MEMEBER_STATUS = [
   { value: 'out', label: '탈퇴' },
 ];
 
-export const AUTH_STATUS = [{ value: 'finish', label: '본인인증 완료' }];
+export const AUTH_STATUS = [
+  { value: 'finish', label: '본인인증 완료' },
+];
 
 export const SEARCH_DATE_TYPE = [
   { value: 'create', label: '가입일' },
@@ -28,12 +38,12 @@ export const MEMBER_COLUMNS = [
   { value: 'status', label: '회원상태' },
 ];
 
-export const USER_STATUS_COLOR = {
+export const USER_STATUS_COLOR: StatusColorMap= {
   pending: { color: 'warning' },
   out: { color: 'secondary' },
   active: { color: 'success' },
 };
 
-export const AUTH_STATUS_COLOR = {
+export const AUTH_STATUS_COLOR: StatusColorMap = {
   finish: { color: 'success' },
 };

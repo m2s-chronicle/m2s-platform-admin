@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import usersApi from '@/apis/usersApi';
 import memberKeys from '@/hooks/queries/memberKeys';
@@ -49,12 +49,8 @@ const useMemberDetail = (userId: number) => {
   const { isLoading, data, error } = useQuery<AxiosResponse<IUserMemberDetailResponse>, Error>(
     [queryKey, userId],
     async () => {
-      try {
-        const response = await usersApi.detail(userId);
-        return response.data;
-      } catch (error) {
-        throw error;
-      }
+      const response = await usersApi.detail(userId);
+      return response.data;
     }
   );
 

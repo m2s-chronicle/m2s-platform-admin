@@ -7,29 +7,27 @@ import Chip from '@mui/material/Chip';
 import { TUser } from '@/types/detail';
 
 //* Utils Import
-import { MEMBER_COLUMNS, MEMEBER_STATUS, AUTH_STATUS, USER_STATUS_COLOR, AUTH_STATUS_COLOR } from '@/utils/staticData';
-import formatter from '@/utils/formatter';
+import { MEMEBER_STATUS, AUTH_STATUS, USER_STATUS_COLOR, AUTH_STATUS_COLOR } from '@/utils/staticData';
 
 interface IProps {
-  user: TUser[];
+  userData: TUser;
 }
 
 const MemberProfile = (props: IProps) => {
-  const { user } = props;
+  const { userData } = props;
 
   return (
     <Box className="member-info" sx={{ textAlign: 'center' }}>
       <Avatar sx={{ width: 60, height: 60, mx: 'auto', mb: 2 }} />
 
       {/* Display user information */}
-      <Typography variant="subtitle1">{user.name}</Typography>
-      {user.age && <Typography variant="body2">만 {user.age}세</Typography>}
-      {user.status && (
+      <Typography variant="subtitle1">{userData.name}</Typography>
+      {userData.age && <Typography variant="body2">만 {userData.age}세</Typography>}
+      {userData.status && (
         <Chip
-          label={MEMEBER_STATUS.filter((stat) => stat.value === user.status)[0].label}
-          color={USER_STATUS_COLOR[user.status].color}
+          label={MEMEBER_STATUS.filter((stat) => stat.value === userData.status)[0].label}
+          color={USER_STATUS_COLOR[userData.status].color as 'default' | 'warning' | 'secondary' | 'success' | 'primary' | 'error' | 'info'}
           sx={{
-            mt: 2,
             height: 24,
             fontSize: '0.75rem',
             textTransform: 'capitalize',
@@ -39,10 +37,10 @@ const MemberProfile = (props: IProps) => {
         />
       )}
       <br></br>
-      {user.auth_status && (
+      {userData.auth_status && (
         <Chip
-          label={AUTH_STATUS.filter((stat) => stat.value === user.auth_status)[0].label}
-          color={AUTH_STATUS_COLOR[user.auth_status].color}
+          label={AUTH_STATUS.filter((stat) => stat.value === userData.auth_status)[0].label}
+          color={AUTH_STATUS_COLOR[userData.auth_status].color as 'default'}
           sx={{
             mt: 2,
             height: 24,
