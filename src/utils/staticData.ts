@@ -11,9 +11,7 @@ export const MEMEBER_STATUS = [
   { value: 'out', label: '탈퇴' },
 ];
 
-export const AUTH_STATUS = [
-  { value: 'finish', label: '본인인증 완료' },
-];
+export const AUTH_STATUS = [{ value: 'finish', label: '본인인증 완료' }];
 
 export const SEARCH_DATE_TYPE = [
   { value: 'create', label: '가입일' },

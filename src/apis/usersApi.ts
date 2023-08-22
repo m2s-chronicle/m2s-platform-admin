@@ -8,7 +8,7 @@ const usersApi = {
     return api.get(`/manager/user?page=${page}&size=${size}`);
   },
   detail: (userId: number) => {
-    console.log('userId', userId)
+    console.log('userId', userId);
     return api.get(`/manager/user/${userId}`);
   },
 };

@@ -55,7 +55,7 @@ const useMemberDetail = (userId: number) => {
       } catch (error) {
         throw error;
       }
-    },
+    }
   );
 
   return {

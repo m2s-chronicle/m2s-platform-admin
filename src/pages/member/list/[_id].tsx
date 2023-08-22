@@ -30,7 +30,6 @@ const MemberDetailPage = () => {
   const { isLoading, data } = !isNaN(id) ? useMemberDetail(Number(id)) : { isLoading: false, data: null };
   // console.log("data", data)
 
-
   return (
     <>
       {/* Page title */}
@@ -46,7 +45,7 @@ const MemberDetailPage = () => {
               {/* Check if data is available */}
               {isLoading ? (
                 <div>Loading...</div>
-              ) : data && data.user ? (  // Check if data and data.user exist
+              ) : data && data.user ? ( // Check if data and data.user exist
                 <MemberProfile user={data.user} />
               ) : (
                 <div>No user data available.</div>
@@ -61,8 +60,8 @@ const MemberDetailPage = () => {
             <CardContent sx={{ p: 5 }}>
               {isLoading ? (
                 <div>Loading...</div>
-              ) : data && data.user ? (  // Check if data and data.user exist
-              <MemberInfo userData={data.user} />
+              ) : data && data.user ? ( // Check if data and data.user exist
+                <MemberInfo userData={data.user} />
               ) : (
                 <div>No login records available.</div>
               )}
@@ -81,8 +80,8 @@ const MemberDetailPage = () => {
               </Box>
               {isLoading ? (
                 <div>Loading...</div>
-              ) : data && data.mydata ? (  // Check if data and data.user exist
-              <MydataTable mydataData={data.mydata} />
+              ) : data && data.mydata ? ( // Check if data and data.user exist
+                <MydataTable mydataData={data.mydata} />
               ) : (
                 <div>No login records available.</div>
               )}
@@ -101,8 +100,8 @@ const MemberDetailPage = () => {
               </Box>
               {isLoading ? (
                 <div>Loading...</div>
-              ) : data && data.login ? (  // Check if data and data.user exist
-              <LoginTable loginData={data.login} />
+              ) : data && data.login ? ( // Check if data and data.user exist
+                <LoginTable loginData={data.login} />
               ) : (
                 <div>No login records available.</div>
               )}

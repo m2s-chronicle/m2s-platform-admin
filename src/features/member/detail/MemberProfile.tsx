@@ -10,23 +10,20 @@ import { TUser } from '@/types/detail';
 import { MEMBER_COLUMNS, MEMEBER_STATUS, AUTH_STATUS, USER_STATUS_COLOR, AUTH_STATUS_COLOR } from '@/utils/staticData';
 import formatter from '@/utils/formatter';
 
-
 interface IProps {
   user: TUser[];
 }
 
-const MemberProfile = ( props: IProps ) => {
+const MemberProfile = (props: IProps) => {
   const { user } = props;
-  
+
   return (
     <Box className="member-info" sx={{ textAlign: 'center' }}>
       <Avatar sx={{ width: 60, height: 60, mx: 'auto', mb: 2 }} />
 
       {/* Display user information */}
       <Typography variant="subtitle1">{user.name}</Typography>
-      {user.age && (
-        <Typography variant="body2">만 {user.age}세</Typography>
-      )}
+      {user.age && <Typography variant="body2">만 {user.age}세</Typography>}
       {user.status && (
         <Chip
           label={MEMEBER_STATUS.filter((stat) => stat.value === user.status)[0].label}
@@ -37,7 +34,7 @@ const MemberProfile = ( props: IProps ) => {
             fontSize: '0.75rem',
             textTransform: 'capitalize',
             '& .MuiChip-label': { fontWeight: 500 },
-            marginRight: '5px'
+            marginRight: '5px',
           }}
         />
       )}

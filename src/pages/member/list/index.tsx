@@ -56,7 +56,13 @@ const ListPage = () => {
               Excel
             </Button>
           </Box>
-          <ListTable rows={data?.user_list} pageInfo={data?.page} isLoading={isLoading} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangeRowsPerPage}/>
+          <ListTable
+            rows={data?.user_list}
+            pageInfo={data?.page}
+            isLoading={isLoading}
+            handleChangePage={handleChangePage}
+            handleChangeRowsPerPage={handleChangeRowsPerPage}
+          />
         </CardContent>
       </Card>
     </>

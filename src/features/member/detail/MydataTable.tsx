@@ -67,7 +67,6 @@ const columns = [
   { id: 'judgement', label: '판정 결과' },
 ];
 
-
 const MydataTable = (props: IProps) => {
   const { mydataData } = props;
   return (
