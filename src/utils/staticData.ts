@@ -11,6 +11,8 @@ export const MEMEBER_STATUS = [
   { value: 'out', label: '탈퇴' },
 ];
 
+export const AUTH_STATUS = [{ value: 'finish', label: '본인인증 완료' }];
+
 export const SEARCH_DATE_TYPE = [
   { value: 'create', label: '가입일' },
   { value: 'recent', label: '최근접속일시' },
@@ -25,3 +27,13 @@ export const MEMBER_COLUMNS = [
   { value: 'recent_date', label: '최근접속일시' },
   { value: 'status', label: '회원상태' },
 ];
+
+export const USER_STATUS_COLOR = {
+  pending: { color: 'warning' },
+  out: { color: 'secondary' },
+  active: { color: 'success' },
+};
+
+export const AUTH_STATUS_COLOR = {
+  finish: { color: 'success' },
+};

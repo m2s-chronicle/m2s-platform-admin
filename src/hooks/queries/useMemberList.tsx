@@ -24,7 +24,7 @@ interface IPage {
   request_size: number;
   total_data_cnt: number;
   total_pages: number;
-};
+}
 
 interface IUserListResponse {
   page: IPage[];
@@ -45,7 +45,7 @@ const useMemberList = (page: number, size: number) => {
       } catch (error) {
         throw error;
       }
-    },
+    }
   );
 
   return {

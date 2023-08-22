@@ -49,7 +49,14 @@ const TablePagination = (props: TablePaginationActionsProps) => {
       />
       {hidden && isRowSelect && (
         <RowSelectWrapper>
-          <Select variant="standard" size="small" defaultValue={rowsPerPage} onChange={onRowsPerPageChange} sx={{ fontSize: 14 }} autoWidth>
+          <Select
+            variant="standard"
+            size="small"
+            defaultValue={rowsPerPage}
+            onChange={onRowsPerPageChange}
+            sx={{ fontSize: 14 }}
+            autoWidth
+          >
             <MenuItem value="10">10</MenuItem>
             <MenuItem value="20">20</MenuItem>
             <MenuItem value="30">30</MenuItem>

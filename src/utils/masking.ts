@@ -35,7 +35,7 @@ const masking = {
     if (digits.length === 11) {
       // Format as 010-****-5678
       return `${digits.slice(0, 3)}-${'****'}-${digits.slice(7)}`;
-    } else if (digits.length > 11){
+    } else if (digits.length > 11) {
       return `${digits.slice(0, 3)}-${'****'}-${digits.slice(7, digits.length)}`;
     }
     return phone;
