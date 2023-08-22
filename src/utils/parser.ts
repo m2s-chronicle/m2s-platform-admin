@@ -5,6 +5,7 @@ const parser = {
       operatingSystem: '',
       webKit: '',
     };
+    if(!userAgent) return parsedData;
 
     const browserMatches = userAgent.match(/(Chrome|Safari|Firefox|Edge)\/([\d.]+)/);
     const osMatches = userAgent.match(/(Macintosh|Windows NT|Windows|Linux|CrOS|Dart|PostmanRuntime)[^)]+\)/);
