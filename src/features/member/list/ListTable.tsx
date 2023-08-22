@@ -1,5 +1,5 @@
 //* React Import
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 //* Next Import
 import { useRouter } from 'next/router';
@@ -20,7 +20,7 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import Tooltip from '@mui/material/Tooltip';
 
 //* Utils Import
-import { MEMBER_COLUMNS, MEMEBER_STATUS } from '@/utils/staticData';
+import { MEMBER_COLUMNS, MEMEBER_STATUS, USER_STATUS_COLOR } from '@/utils/staticData';
 import masking from '@/utils/masking';
 import formatter from '@/utils/formatter';
 
@@ -30,6 +30,7 @@ import { ThemeColorType } from '@/layouts/types';
 
 //* Components
 import TablePagination from '@/components/table/TablePagination';
+import { SelectChangeEvent } from '@mui/material';
 
 interface StatusObjType {
   [key: string]: {
@@ -38,10 +39,10 @@ interface StatusObjType {
 }
 interface IProps {
   rows: TMember[];
-  pageInfo: TPage[];
+  pageInfo: TPage;
   isLoading: boolean;
   handleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
-  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleChangeRowsPerPage: (event: SelectChangeEvent<number>, child: ReactNode) => void;
 }
 
 const memberKeys = {
@@ -56,14 +57,8 @@ const ListTable = (props: IProps) => {
   const router = useRouter();
   const { rows, pageInfo, isLoading, handleChangePage, handleChangeRowsPerPage } = props;
 
-  const statusObj: StatusObjType = {
-    pending: { color: 'warning' },
-    out: { color: 'secondary' },
-    active: { color: 'success' },
-  };
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page] = React.useState(0);
+  const [rowsPerPage] = React.useState(10);
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -101,7 +96,7 @@ const ListTable = (props: IProps) => {
                 <TableCell>
                   <Chip
                     label={MEMEBER_STATUS.filter((stat) => stat.value === row.status)[0].label}
-                    color={statusObj[row.status].color}
+                    color={USER_STATUS_COLOR[row.status].color as 'default' | 'warning' | 'secondary' | 'success' | 'primary' | 'error' | 'info'}
                     sx={{
                       height: 24,
                       fontSize: '0.75rem',

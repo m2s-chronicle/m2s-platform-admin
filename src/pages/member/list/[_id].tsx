@@ -27,10 +27,13 @@ const MemberDetailPage = () => {
   const router = useRouter();
   //get ID
   const id = router.query._id;
-  const { isLoading, data } = !isNaN(id) ? useMemberDetail(Number(id)) : { isLoading: false, data: null };
-  // console.log("data", data)
 
-  return (
+  if (id && typeof id === 'string') {
+    const memberId = Number(id); // 변환 가능한 경우에만 변환
+    if (!isNaN(memberId)) {
+      const { isLoading, data } = useMemberDetail(memberId);
+      console.log("data", data)
+      return (
     <>
       {/* Page title */}
       <ContentTitle title="회원 상세조회" isBreadcrumbs />
@@ -44,12 +47,17 @@ const MemberDetailPage = () => {
             <CardContent>
               {/* Check if data is available */}
               {isLoading ? (
-                <div>Loading...</div>
-              ) : data && data.user ? ( // Check if data and data.user exist
-                <MemberProfile user={data.user} />
-              ) : (
-                <div>No user data available.</div>
-              )}
+                    <div>Loading...</div>
+                  ) : (
+                    <div>
+                      {/* Render data directly */}
+                      {data ? (
+                        <MemberProfile userData={data.user} />
+                      ) : (
+                        <div>No user data available.</div>
+                      )}
+                    </div>
+                  )}
             </CardContent>
           </Card>
         </Grid>
@@ -109,8 +117,11 @@ const MemberDetailPage = () => {
           </Card>
         </Grid>
       </Grid>
-    </>
-  );
+    </> 
+      );
+    }
+  }
+  return <div>Loading...</div>;
 };
 
 export default MemberDetailPage;

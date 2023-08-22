@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 
 //* MUI Import
 import Card from '@mui/material/Card';
@@ -24,6 +23,7 @@ const ListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { isLoading, data } = useMemberList(currentPage, rowsPerPage);
+  console.log("data", data)
 
   // 페이지 변경
   const handleChangePage = async (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {

@@ -1,10 +1,7 @@
 import React from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import Chip from '@mui/material/Chip';
-import Tooltip from '@mui/material/Tooltip';
 import formatter from '@/utils/formatter';
 import parser from '@/utils/parser';
-import Typography from '@mui/material/Typography';
 
 interface IProps {
   loginData: {

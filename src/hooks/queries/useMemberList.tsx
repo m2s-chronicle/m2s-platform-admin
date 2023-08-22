@@ -39,12 +39,8 @@ const useMemberList = (page: number, size: number) => {
   const { isLoading, data, error } = useQuery<AxiosResponse<IUserListResponse>, AxiosError>(
     [queryKey, page, size],
     async () => {
-      try {
-        const response = await usersApi.list(page, size);
-        return response.data;
-      } catch (error) {
-        throw error;
-      }
+      const response = await usersApi.list(page, size);
+      return response.data;
     }
   );
 

@@ -5,7 +5,8 @@ const token = 'TOKENSTRING';
 //TODO: axios settings
 const axiosInstance: AxiosInstance = axios.create({
   // baseURL: process.env.NEXT_PUBLIC_API_URL,
-  baseURL: 'http://127.0.0.1:8080/',
+  // baseURL: 'http://127.0.0.1:8080/',
+  baseURL: 'https://1plg4q4dzj.execute-api.ap-northeast-2.amazonaws.com/dev/',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
