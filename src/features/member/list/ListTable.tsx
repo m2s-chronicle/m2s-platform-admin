@@ -13,6 +13,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+
 // import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
@@ -30,7 +31,7 @@ import { ThemeColorType } from '@/layouts/types';
 
 //* Components
 import TablePagination from '@/components/table/TablePagination';
-import { SelectChangeEvent } from '@mui/material';
+import { Divider, SelectChangeEvent } from '@mui/material';
 
 interface StatusObjType {
   [key: string]: {
@@ -62,7 +63,7 @@ const ListTable = (props: IProps) => {
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || !rows) return <Divider sx={{ m: 1 }}>Loading...</Divider>;
 
   return (
     <>
