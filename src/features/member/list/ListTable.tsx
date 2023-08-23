@@ -33,11 +33,7 @@ import { ThemeColorType } from '@/layouts/types';
 import TablePagination from '@/components/table/TablePagination';
 import { Divider, SelectChangeEvent } from '@mui/material';
 
-interface StatusObjType {
-  [key: string]: {
-    color: ThemeColorType;
-  };
-}
+
 interface IProps {
   rows: TMember[];
   pageInfo: TPage;
@@ -75,7 +71,7 @@ const ListTable = (props: IProps) => {
               {MEMBER_COLUMNS.map((col) => (
                 <TableCell key={`mem_${col.value}`}>{col.label}</TableCell>
               ))}
-              <TableCell>Actions</TableCell>
+              <TableCell>상세보기</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -32,7 +32,6 @@ const MemberDetailPage = () => {
     const memberId = Number(id); // 변환 가능한 경우에만 변환
     if (!isNaN(memberId)) {
       const { isLoading, data } = useMemberDetail(memberId);
-      console.log("data", data)
       return (
     <>
       {/* Page title */}
