@@ -11,6 +11,41 @@ export type TMember = {
   status: 'pending' | 'active' | 'out';
 };
 
+export type TMydata = {
+  id: number;
+  user: number;
+  age: number;
+  name: string;
+  birth: string;
+  age_at_checkup: number;
+  created_date: string;
+  checkup_year: string;
+  checkup_date: string;
+  checkup_place: string;
+  height: string;
+  weight: string;
+  waist: string;
+  bmi: string;
+  sight: string;
+  hearing: string;
+  blood_pressure: string;
+  urinary_protein: string;
+  hemoglobin: string;
+  fasting_blood_sugar: string;
+  total_cholesterol: string;
+  hdl_cholesterol: string;
+  triglyceride: string;
+  ldl_cholesterol: string;
+  serum_creatinine: string;
+  gfr: string;
+  ast: string;
+  alt: string;
+  ygpt: string;
+  tb_chest_disease: string;
+  osteoporosis: string;
+  judgement: string;
+};
+
 export type TPage = {
   is_first_page: boolean;
   is_last_page: true;
