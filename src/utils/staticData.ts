@@ -26,7 +26,7 @@ export const AUTH_STATUS = [
 export const HEALTH_CHECK_STATUS = [
   { value: '정A', label: '정상A', default: true },
   { value: '정B', label: '정상B' },
-  { value: '질환의심', label: '일반 질환의심' },
+  { value: '의심', label: '일반 질환의심' },
 ];
 
 export const SEARCH_DATE_TYPE = [
@@ -88,5 +88,5 @@ export const AUTH_STATUS_COLOR: StatusColorMap = {
 export const HEALTH_CHECK_STATUS_COLOR: StatusColorMap = {
   '정A': { color: 'success' },
   '정B': { color: 'info' },
-  '질환의심': { color: 'warning' },
+  '의심': { color: 'warning' },
 };
